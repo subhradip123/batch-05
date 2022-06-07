@@ -1,0 +1,39 @@
+Architecture detail:(Distributed non-clustered environment)
+
+1.Universal forwarder: Here we install universal forwarder package. Only cli, does not have  any GUI.(inputs.conf, outputs.conf)
+
+2.Heavy forwarder:(props.conf, transforms.conf)
+a>parsing(props.conf):
+This is Subhradip. This is Karthic. This is Umesh.
+
+This is Subhradip.
+
+This is Kartick.
+
+This is Umesh.
+
+
+This is Subhradip, Subhradip is 26 years old.
+This is Karthick, Karthick is 29 years old.
+
+This is Subhradip.
+
+Subhradip is 26 years old.
+
+This is Karthick.
+
+Karthick is 29 years old.
+
+
+b>masking(props.conf):
+This is Kartick. His contact is 1234567890.
+
+This is Kartick. His contact is *******890.
+
+
+c>filterring(transforms.conf):
+Kartick logged in from 198.162.52.21.
+Kartick logged out from 198.162.52.21.
+Subhradip logged out from 198.162.52.22.
+
+

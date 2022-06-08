@@ -37,3 +37,35 @@ Kartick logged out from 198.162.52.21.
 Subhradip logged out from 198.162.52.22.
 
 
+Kartick logged in from 198.162.52.21.
+
+Indexer:(indexes.conf)
+Index: Is the directory where we are stroring data.
+
+LM(License master):
+a> license stacking: 100 gb/day + 30 gb/day ----> 130 gb/splunk
+
+b> license polling:
+pool A: 80 gb/day -->Indexers
+pool B: 20 gb/day -->SH,DS
+
+100 gb 
+
+license exceed>5 times in a rolling period of 30 days.
+8/6/22-->exceed
+
+
+7/7/22
+
+<6.5(splunk version)--> indexing continues,cant search the data. --> 'litsearch error'
+>=6.5(splunk version) -->indexing continues, can search the data, but splunk can take legal action against you or your organization.
+
+License got expired --->indexing continues, but searches blocked.
+
+License master is down--> >72 hours then you indexing continues but searches are blocked.
+
+
+
+
+
+

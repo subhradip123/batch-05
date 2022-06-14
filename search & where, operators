@@ -1,0 +1,52 @@
+splunk uses pipeline concept.i.e. output from earlier pipe will be the input for next pipe.
+
+search:
+eg.
+index=_internal sourcetype=splunkd_ui_access bytes IN (797)
+OR
+index=_internal sourcetype=splunkd_ui_access bytes=797
+
+for using search at later part of query.
+eg.
+index=_internal sourcetype=splunkd_ui_access | search bytes<700
+
+index=_internal sourcetype=splunkd_ui_access | search bytes IN (59)
+
+where:
+eg.
+index=_internal sourcetype=splunkd_ui_access | where bytes=59
+
+task:
+difference between search and where command.
+
+operators:
+OR:
+index=_internal sourcetype=splunkd_ui_access
+| where bytes=797 OR file="splunkd" 
+| table bytes file 
+| dedup bytes file
+
+AND:
+index=_internal sourcetype=splunkd_ui_access
+| where bytes=59 AND file="splunkd" 
+| table bytes file 
+| dedup bytes file
+
+NOT:
+index=_internal sourcetype=splunkd_ui_access
+| search NOT bytes=797 
+| table bytes file 
+| dedup bytes file
+
+index=_internal sourcetype=splunkd_ui_access
+| search bytes!=797 
+| table bytes file 
+| dedup bytes file
+
+clubung together:
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| search NOT bytes=797 AND (bytes=59 OR method=GET)
+| table bytes file method
+| dedup bytes file method
+

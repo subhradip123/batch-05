@@ -1,0 +1,49 @@
+top:
+used to fetch max occurances of field values.
+.. | top <field_name1>,<field_name2>...
+
+eg.
+index=_internal sourcetype=*
+| top method status
+
+by default top command returns top 10 values
+
+index=_internal sourcetype=splunkd_ui_access
+| top file limit=20
+
+limit=0 returns all the values.
+
+attributes:
+showperc=false
+showcount=false [only see percentage values,count will disappear]
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| top file limit=0 showperc=f showcount=f
+
+rare:
+opposite of top command.
+
+head:
+It will return 1st 10 values.
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| table file
+| dedup file
+| head
+
+tail:
+opposite of head.
+
+
+task:
+task:
+index=_internal sourcetype="splunkd_ui_access" | table status | dedup status
+from this list I need only the 3rd value.
+
+index=_internal sourcetype="splunkd_ui_access" 
+| table status 
+| dedup status 
+| head 3
+| tail 1
+
+

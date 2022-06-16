@@ -18,6 +18,11 @@ index=_internal sourcetype=splunkd_ui_access | where bytes=59
 
 task:
 difference between search and where command.
+In where command we can make comparison between two differnt fields
+index=_internal sourcetype=splunkd_ui_access
+| table status,bytes
+| dedup status,bytes
+| where status>bytes
 
 operators:
 OR:

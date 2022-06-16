@@ -1,0 +1,41 @@
+table:
+... | table <f.n1>,<f.n2>,<f.n3>
+table command supports wild card entry.
+Neumeric fields will be right alliagned alphabatical fields will be left allinged
+
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| table file,method,status,bytes
+
+dedup:
+In table command every field value appears as many time they are present inside events. If we want to take only unique values then dedup comes in scenario.
+
+... | dedup <f.n1>,<f.n2>,<f.n3>
+dedup command does not support wild card entry.
+
+rename:
+.. | rename <field_name> as <new_field_name>
+eg.
+index=_internal sourcetype=*
+| dedup method,status,host
+| table met*,stat*,host
+| rename status as http_status ,method as http_method
+
+replace:
+.. | replace <old_value> with <new_value> in <field_name>
+                **              ***            ****
+** this filed values are case sensitive but it can take wild card entry
+**** this field name is case sensitive abd cant take wild card entry.
+
+
+country      list_of_stores
+Idndia        25
+China         40
+Jap           50
+
+eg.
+index=_internal sourcetype=*
+| dedup method,status
+| table met*,stat*
+| rename status as http_status ,method as http_method
+| replace POST with Karthick in http_method

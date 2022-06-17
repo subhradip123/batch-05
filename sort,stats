@@ -1,0 +1,62 @@
+sort:
+.. | sort <field_name>  ---->assending order
+.. | sort - <field_name>  --->decending order
+
+eg.
+index=_internal sourcetype="splunkd_ui_access" 
+| table file 
+| dedup file
+| sort file
+
+
+
+stats:
+used to calculate statictical aggregations like min,max,avg,sum,distict count,normal count.
+
+.. | stats <stats_func>(field_name) as "<name>" by <field_name_2>
+
+count:
+eg.
+index=_internal sourcetype="splunkd_ui_access" 
+| stats count
+
+index=_internal sourcetype="splunkd_ui_access" 
+| stats count by method file
+
+min:
+eg.
+index=_internal sourcetype="splunkd_ui_access" 
+| stats min(bytes) as lowest_bytes by file
+
+max:
+eg.
+index=_internal sourcetype="splunkd_ui_access" 
+| stats max(bytes) as highest_bytes by file
+
+avg:
+eg.
+index=_internal sourcetype="splunkd_ui_access" 
+| stats avg(bytes) as avg_bytes by file
+
+sum:
+index=_internal sourcetype="splunkd_ui_access" 
+| stats sum(bytes) as total_bytes by file
+
+we can use multiple functions in one stats command.
+eg.
+index=_internal sourcetype="splunkd_ui_access" 
+| stats min(bytes) as min_bytes max(bytes) as max_bytes avg(bytes) as avg_bytes sum(bytes) as total_bytes by file
+
+dc:(distict count)
+eg.
+index=_internal sourcetype="splunkd_ui_access" 
+| stats dc(method)
+
+values:
+eg.
+index=_internal sourcetype="splunkd_ui_access" 
+| stats dc(method) values(method)
+
+list:
+index=_internal sourcetype="splunkd_ui_access" 
+| stats list(method)

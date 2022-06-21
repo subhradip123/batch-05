@@ -1,0 +1,38 @@
+fillnull:
+replaces a null values with "0"
+
+eg.
+index=_internal sourcetype="splunkd_ui_access" 
+| timechart span=6h max(bytes) as max_bytes min(bytes) as min_bytes
+| fillnull
+
+replaces nulls with desired values:
+eg.
+index=_internal sourcetype="splunkd_ui_access" 
+| timechart span=6h max(bytes) as max_bytes min(bytes) as min_bytes
+| fillnull value="N/A"
+
+
+append:
+query 1 | append [| search query 2]
+
+eg.
+index=_internal 
+| table sourcetype source 
+| dedup sourcetype source 
+| head 3 
+| append 
+    [| search index=_introspection 
+    | table sourcetype source 
+    | dedup sourcetype source 
+    | head 3]
+	
+index=_internal 
+| table method host 
+| dedup method host 
+| head 3 
+| append 
+    [| search index=_introspection 
+    | table sourcetype source 
+    | dedup sourcetype source 
+    | head 3]

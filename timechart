@@ -1,0 +1,50 @@
+timechart:
+It will show the values on basis of time interval.
+It will use all the functions we used with stats command.
+
+.. | timechart <function>(field_name1) by <field_name2>
+
+time interval:
+Run for last 24 hours, gives interval of 30 mins.
+Run for last 60 mins, gives interval of 1 min.
+Run for last 15 mins, gives interval of 10 sec.
+
+custom interval:
+span is an attribute used for custom interval.
+
+s=sec
+m=min
+h=hours
+d=day
+w=week
+mon=month
+
+eg.
+index=_internal sourcetype="splunkd_ui_access" 
+| timechart span=12h max(bytes) min(bytes) by method
+
+index=_internal sourcetype="splunkd_ui_access" 
+| timechart span=3d max(bytes) min(bytes) by method
+
+
+In timechart command by default it returns 10 columns.
+change the number of columns:
+index=_internal sourcetype="splunkd_ui_access" 
+| timechart limit=15 count by file
+
+limit=0 returns all the possible collumns.
+
+what is other and null in timechart command?
+By default timechart command returns top 10 field values as column. the remaining values lies in other.
+
+Subhradip lives in Kolkata.
+Ankith lives in Hyderabad.
+       lives in Mumbai.
+
+specify the label for the series that is created for event that do not contain the split by field.
+
+
+Omit null and other:
+index=_internal sourcetype="splunkd_ui_access" 
+| timechart count by file usenull=f useother=f
+

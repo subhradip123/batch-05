@@ -1,0 +1,74 @@
+eval:(evaluation)
+we can use any mathematical logic.
+
+.. | eval "new_field_name"=logic1, "new_field_name2"=logic2
+
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| table method bytes count status
+| dedup method bytes count status
+| eval "total"='bytes'+'count', "subs"='bytes'-'count', "multi"='bytes'*'count', "devide"='bytes'/'count'
+
+concatinate:
+.. | eval "new_field_name"=field1.field2
+
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| table method bytes count status
+| dedup method bytes count status
+| eval "conc"='method'.'bytes'
+
+concatinate any other symbol/spaces/strings:
+index=_internal sourcetype=splunkd_ui_access
+| table method bytes count status
+| dedup method bytes count status
+| eval "conc"='method'." - ".'bytes'
+
+index=_internal sourcetype=splunkd_ui_access
+| table method bytes count status
+| dedup method bytes count status
+| eval "conc"="bytes = 
+".'bytes'
+
+round up a number:
+.. | eval "new"=round(field_name,<digit>)   [upto how many digits round up needed]
+               =round(field_name)           [round up upto zero decimal]
+			   
+			   
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| table bytes
+| dedup bytes
+| eval "kb"='bytes'/1024
+| eval "kb"=round(kb,2)
+
+less the pipes faster the query:
+index=_internal sourcetype=splunkd_ui_access
+| table bytes
+| dedup bytes
+| eval "kb"=round('bytes'/1024,2)
+
+lowercase to uppercase and vise versa:
+.. | eval "new" = lower(field_name)
+.. | eval "new"=upper(field_name)
+
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| table method file
+| dedup method file
+| eval "lower_method"=lower(method), "upper_file"=upper(file)
+
+length of field:
+.. | eval "new"=len(field_name)
+
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| table method file
+| dedup method file
+| eval "charecters_file"=len(file)
+
+
+
+
+
+

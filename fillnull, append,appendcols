@@ -36,3 +36,15 @@ index=_internal
     | table sourcetype source 
     | dedup sourcetype source 
     | head 3]
+    
+appendcols:
+eg.
+index=_internal 
+| table sourcetype source 
+| dedup sourcetype source 
+| head 3 
+| appendcols
+    [| search index=_introspection 
+    | table sourcetype status 
+    | dedup sourcetype status 
+    | head 3]

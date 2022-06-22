@@ -1,0 +1,52 @@
+addcoltotals:
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| table method bytes count status
+| dedup method bytes count status
+| addcoltotals bytes count
+
+write total in a column:
+index=_internal sourcetype=splunkd_ui_access
+| table method bytes count status
+| dedup method bytes count status
+| addcoltotals labelfield=method
+
+change the name total:
+index=_internal sourcetype=splunkd_ui_access
+| table method bytes count status
+| dedup method bytes count status
+| addcoltotals labelfield=method label="Total_bytes_count_status"
+
+
+
+addtotals:
+index=_internal sourcetype=splunkd_ui_access
+| table method bytes count status
+| dedup method bytes count status
+| addtotals
+
+specify the fields to get total:
+index=_internal sourcetype=splunkd_ui_access
+| table method bytes count status
+| dedup method bytes count status
+| addtotals bytes count
+
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| table method bytes count status
+| dedup method bytes count status
+| addtotals fieldname=sum_bytes_count bytes count
+| addtotals fieldname=sum_count_status count status
+
+
+rename total field:
+index=_internal sourcetype=splunkd_ui_access
+| table method bytes count status
+| dedup method bytes count status
+| addtotals fieldname=sum_bytes_count bytes count
+
+attributes:
+index=_internal sourcetype=splunkd_ui_access
+| table method bytes count status
+| dedup method bytes count status
+| addtotals fieldname=sum_bytes_count col=t bytes count

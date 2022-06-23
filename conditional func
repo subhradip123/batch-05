@@ -1,0 +1,37 @@
+Conditional function:
+if...else:
+.. | eval "new"=if(condition,"value to show","else the value to show")
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| table status
+| dedup status
+| eval "http_status"=if(status=200,"Good","Bad_request")
+
+multiple conditions:
+.. | eval "new"=if(condition1,"value for condition 1",if(condition2,"value for condition 2","else value to show"))
+
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| table status
+| dedup status
+| eval "http_status"=if(status=200,"Good",if(status=404,"page_not_found","bad_request"))
+
+case:
+.. | eval "new"=case(case1,"value1",case2,"value2",case3,"value3",1=1,"default value")
+
+eg.
+index=_internal sourcetype=splunkd_ui_access
+| table status
+| dedup status
+| eval "http_status"=case(status=200,'status'+50,status=404,'status'+60,true(),'status'-100)
+
+index=_internal sourcetype=splunkd_ui_access
+| table status
+| dedup status
+| eval "http_status"=case(status=200,"good",status=404,"page_not_found",1=1,"bad_request")
+
+index=_internal sourcetype=splunkd_ui_access
+| table status method
+| dedup status method
+| eval "http_status"=case(status=200 AND method="GET","good",status=400 AND method="GET","bad_req",1=1,"page_not_found")
+

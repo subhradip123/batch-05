@@ -1,0 +1,14 @@
+field extraction:
+There are two type of field extraction based on when we are extracting the fields.
+1.Indextime field extraction:
+If field is extracted before data get indexed, then it is indextime extraction.
+Can be done from HF,Idx.
+
+2.Searchtime field extraction:
+If field extraction is done after data get indexed, then it is search time extraction.
+Can be done fro SH,IDX.
+a)Interactive field extraction.
+left arrowof event>>event action dropdown>>extract fields>>select regular expression>>next>>select the portion to extract>>
+give a name>>add extraction>>validate>>done
+
+b)regular expression(rex)

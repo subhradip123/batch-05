@@ -12,3 +12,44 @@ left arrowof event>>event action dropdown>>extract fields>>select regular expres
 give a name>>add extraction>>validate>>done
 
 b)regular expression(rex)
+
+.. | rex field=<field_name> "prepattern(?<new_field_name>extracted pattern)post pattern"
+
+\w=word/charecter
+\d=digit
+\s=space
+?=0 or 1 occurance
++=1 or more occurance
+.*=all
+\<=<
+\"="
+
+cheat sheet:
+https://www.debuggex.com/cheatsheet/regex/pcre
+
+test regular expression:
+https://regex101.com/
+
+practice regular expression:
+https://regexone.com/
+
+eg.
+event:
+127.0.0.1 - admin [24/Jun/2022:09:44:45.008 +0530] "GET /en-US/splunkd/__raw/services/search/shelper?output_mode=json&snippet=true&snippetEmbedJS=false&namespace=search&search=search%20index%3D_internal%20sourcetype%3Dsplunkd_ui_access%0A%7C%20rex%20field%3D_raw%20%22.*%3F%5C((%3F%3COS%3E%5Cw%2B%5Cs%2B%5Cw%2B%5Cs%2B%5Cd%2B%5C.%5Cd%2B%5C%3B%5Cs%2B%5Cw%2B%5C%3B%5Cs%2B%5Cw%2B)%5C).*%22%0A%7C%20fields%20OS%0A%7C%20stats%20count%20by%20OS&useTypeahead=true&showCommandHelp=true&showCommandHistory=true&showFieldInfo=false&_=1656042495708 HTTP/1.1" 200 50228 "-" "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36" - 0454ea639499d36160f00c8349440ae0 17ms
+
+index=_internal sourcetype=splunkd_ui_access
+| rex field=_raw ".*?\((?<OS>\w+\s+\w+\s+\d+\.\d+\;\s+\w+\;\s+\w+)\).*"
+| fields OS
+| stats count by OS               [check all events are mathed or not]
+
+extract from exsisting field:
+eg:
+index=_internal sourcetype=splunkd_ui_access
+| table uri
+| dedup uri
+| rex field=uri ".*\=(?<Search_ID>\d{13})"
+| table uri Search_ID
+
+
+
+

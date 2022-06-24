@@ -1,0 +1,34 @@
+lookups:
+Name        Position
+Subhradip   Splunk engineer
+Karthick    Linux dev
+Salim       ES engineer
+
+
+Name        Salary
+Subhradip    30k
+Karthick     40k
+Salim        50k
+
+upload a csv file:
+settings>>Lookups » Lookup table files » Add new
+
+see contents of the csv file:
+| inputlookup Karthick.csv
+
+Create csv file with command:
+| inputlookup Karthick.csv
+| outputlookup Karthick_2.csv
+
+match with data:
+
+| makeresults
+| eval "emp_Name"="Subhradip", "Position"="Splunk engineer"
+| fields - _time
+| lookup Karthick.csv Name as emp_Name output Salary
+          *             **     ***      ****   *****
+*=csv file name
+**=field paresent in CSV file
+***=field with which mapping needed and coming from other data
+****=output:replace all the values if presented in data. outputnew:replace
+*****= which field to be shown from csv file. If nothing is writen there it will take all available fields from csv file.
